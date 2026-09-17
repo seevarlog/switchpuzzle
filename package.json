@@ -1,0 +1,32 @@
+{
+  "name": "switchpuzzle",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "images": "node scripts/build-images.mjs",
+    "images:sample": "node scripts/gen-placeholders.mjs",
+    "predev": "npm run images",
+    "dev": "vite --host",
+    "prebuild": "npm run images",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "android:sync": "npm run build && cap sync android",
+    "android:open": "cap open android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.5.2",
+    "@capacitor/app": "^8.1.1",
+    "@capacitor/core": "^8.5.2",
+    "@capacitor/haptics": "^8.0.2"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.5.2",
+    "sharp": "^0.35.4",
+    "typescript": "~5.9",
+    "vite": "^8.3.0",
+    "vitest": "^5.0.1"
+  }
+}
