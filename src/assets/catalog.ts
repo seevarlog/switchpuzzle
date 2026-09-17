@@ -27,9 +27,18 @@ export interface Manifest {
   packs: PuzzlePack[];
 }
 
+declare global {
+  interface Window {
+    /** 한 파일 배포본(scripts/build-standalone.mjs)이 그림을 data URI 로 담아 심어두는 manifest */
+    __PUZZLE_MANIFEST__?: Manifest;
+  }
+}
+
 let manifestPromise: Promise<Manifest> | null = null;
 
 export function loadCatalog(): Promise<Manifest> {
+  const embedded = window.__PUZZLE_MANIFEST__;
+  if (embedded) return Promise.resolve(embedded);
   manifestPromise ??= fetch(assetUrl("puzzles/manifest.json")).then((res) => {
     if (!res.ok) throw new Error(`manifest.json 로드 실패 (${res.status}) — npm run images 를 실행했는지 확인하세요`);
     return res.json() as Promise<Manifest>;
@@ -40,8 +49,13 @@ export function loadCatalog(): Promise<Manifest> {
   return manifestPromise;
 }
 
+/**
+ * 절대 URL 로 돌려준다. CSS 변수에 담긴 상대 url() 은 참조하는 스타일시트 기준으로 풀려
+ * 빌드 후(assets/ 아래 CSS) 경로가 어긋나기 때문이다.
+ */
 export function assetUrl(path: string): string {
-  return `${import.meta.env.BASE_URL}${path}`;
+  if (path.startsWith("data:")) return path;
+  return new URL(`${import.meta.env.BASE_URL}${path}`, document.baseURI).href;
 }
 
 export function allImages(manifest: Manifest): PuzzleImage[] {

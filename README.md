@@ -28,6 +28,7 @@ npm run dev
 | `npm run typecheck` | 타입 체크 |
 | `npm run images` | `images-src/` → `public/puzzles/` 변환 (바뀐 파일만) |
 | `npm run images:sample` | 프로토타입용 샘플 그림(SVG) 재생성 |
+| `npm run build:standalone` | 서버 없이 열리는 한 파일 배포본 생성 (`dist-standalone/`, 그림을 data URI로 포함 — 데모 공유용) |
 | `npm run android:sync` | 웹 빌드 후 Android 프로젝트에 복사 |
 | `npm run android:open` | Android Studio로 열기 |
 

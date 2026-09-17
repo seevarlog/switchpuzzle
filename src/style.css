@@ -37,8 +37,7 @@ body {
 }
 
 #app {
-  height: 100vh;
-  height: 100dvh;
+  height: 100%;
   max-width: 560px;
   margin: 0 auto;
 }
@@ -357,6 +356,7 @@ button {
 .face {
   position: absolute;
   inset: 0;
+  background-image: var(--piece-image);
   background-repeat: no-repeat;
   box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.55);
   transition:
@@ -451,6 +451,7 @@ button {
   position: absolute;
   inset: 0;
   z-index: 5;
+  background-image: var(--piece-image);
   background-size: cover;
   background-position: center;
   opacity: 0;

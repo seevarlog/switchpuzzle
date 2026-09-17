@@ -62,13 +62,11 @@ export class BoardView {
     this.opts = opts;
     const { rows, cols } = opts.size;
     const peek = el("div", { class: "peek" });
-    peek.style.backgroundImage = `url("${opts.imageUrl}")`;
 
     // tile = 위치(transform), face = 그림 조각·강조·흔들림. 둘을 나눠 transform 충돌을 피한다
     this.faces = [];
     this.tiles = Array.from({ length: rows * cols }, (_, piece) => {
       const face = el("div", { class: "face" });
-      face.style.backgroundImage = `url("${opts.imageUrl}")`;
       this.faces.push(face);
       const tile = el("div", { class: "tile", attrs: { "data-piece": String(piece) } }, face, el("span", { class: "num" }, piece + 1));
       tile.addEventListener("animationend", () => tile.classList.remove("shake"));
@@ -91,6 +89,8 @@ export class BoardView {
       ...this.tiles,
       peek,
     );
+    // 그림 URL 은 판에 한 번만 둔다 (data URI 여도 조각 수만큼 복제되지 않게)
+    this.boardEl.style.setProperty("--piece-image", `url("${opts.imageUrl}")`);
     this.el = el("div", { class: "board-wrap" }, this.boardEl);
 
     this.resizeObserver = new ResizeObserver(() => this.layout());

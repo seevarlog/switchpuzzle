@@ -10,6 +10,7 @@
     "dev": "vite --host",
     "prebuild": "npm run images",
     "build": "tsc --noEmit && vite build",
+    "build:standalone": "npm run images && node scripts/build-standalone.mjs",
     "preview": "vite preview --host",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",

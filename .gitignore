@@ -1,5 +1,6 @@
 node_modules/
 dist/
+dist-standalone/
 # 빌드 산출물 — images-src/ 에서 npm run images 로 생성
 public/puzzles/
 .DS_Store
